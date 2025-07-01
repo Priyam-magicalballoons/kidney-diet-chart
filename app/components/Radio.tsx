@@ -34,7 +34,7 @@ const Radio = ({
             type="radio"
             className="input"
             defaultChecked={value === "non-vegetarian"}
-            value={"non-vegetarian or vegetarian"}
+            value={"non-vegetarian and vegetarian"}
             onChange={(e) => onchange(e.target.value)}
           />
           <label htmlFor="non-veg" className="cursor-pointer">

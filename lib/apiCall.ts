@@ -23,7 +23,7 @@ export async function generateDietChart(data: FormType) {
   const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
   const prompt = `
-You are a certified renal dietitian AI. A patient has submitted their information to generate a personalized kidney-safe diet plan. create detailed Indian style diet plan with multiple options along with proper timing ranges.
+You are a certified renal dietitian AI. A patient has submitted their information to generate a personalized kidney-safe diet plan. create detailed Indian style diet plan with 3-4 options along with proper timing ranges.
 
 Patient Details:
 - Name: ${data.name}
@@ -85,8 +85,6 @@ Only respond with the JSON. Do not add any text outside the JSON.
   const response = await result.response.text();
 
   try {
-    console.log(response);
-    console.log(response.replace("```", "").replace("```json", ""));
     return JSON.parse(
       response.replace("```json", "").replace("```", "").replace("json", "")
     );

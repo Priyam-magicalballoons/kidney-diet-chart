@@ -82,14 +82,14 @@ export default function Home() {
         <Loader isLoading={isLoading}>
           <div className="w-full items-center justify-center flex flex-col">
             <div className="text-center justify-center items-center w-full flex flex-col">
-              <h1 className="text-4xl lg:w-6xl py-10 text-white opacity-90 font-bold">
+              <h1 className="text-4xl lg:w-6xl pb-10 text-white opacity-90 font-bold">
                 KidneyCare Diet Planner
               </h1>
-              <h3 className="text-gray-700 opacity-90 font-semibold md:w-[80vw] lg:w-[60vw] text-center pb-5 text-lg leading-5">
+              <h3 className="text-gray-700 opacity-90 font-semibold md:w-[80vw] lg:w-[60vw] text-center pb-5 text-lg leading-6">
                 Create custom diet charts designed specifically for kidney
                 patients Backed by science. Stay healthy with KidneyCare.
               </h3>
-              <p className="text-LG font-medium tracking-wider py-2">
+              <p className="text-lg font-medium tracking-wider pb-5">
                 Begin your kidney-friendly diet journey—enter your details below
               </p>
             </div>
@@ -99,56 +99,60 @@ export default function Home() {
                   <h3 className="text-center text-2xl font-bold">
                     Personal Details
                   </h3>
-                  <Input
-                    placeholder="Enter Your name"
-                    onchange={(e) => {
-                      setFormData({ ...formData, name: e });
-                    }}
-                    value={formData.name || ""}
-                  />
-                  <Input
-                    type="number"
-                    placeholder="Enter Your height in cm"
-                    onchange={(e) => {
-                      setFormData({ ...formData, height: e });
-                    }}
-                    value={formData.height}
-                    min={0}
-                    max={1000}
-                  />
-                  <Input
-                    type="number"
-                    placeholder="Enter Your weight in kg"
-                    onchange={(e) => {
-                      setFormData({ ...formData, weight: e });
-                    }}
-                    value={formData.weight}
-                    min={0}
-                    max={1000}
-                  />
-                  <Input
-                    type="number"
-                    placeholder="Enter Your age"
-                    onchange={(e) => {
-                      setFormData({ ...formData, age: e });
-                    }}
-                    value={formData.age}
-                  />
-                  <SelectInput
-                    value={formData.medical_history}
-                    onchange={(data) =>
-                      setFormData({
-                        ...formData,
-                        medical_history: data as MultiValue<{
-                          label: string;
-                          value: string;
-                        }>,
-                      })
-                    }
-                    isMulti={true}
-                    type={"history"}
-                    placeholder={"Choose other medical conditions"}
-                  />
+                  <div className="flex flex-col">
+                    <Input
+                      placeholder="Enter Your name"
+                      onchange={(e) => {
+                        setFormData({ ...formData, name: e });
+                      }}
+                      value={formData.name || ""}
+                    />
+                    <Input
+                      type="number"
+                      placeholder="Enter Your height in cm"
+                      onchange={(e) => {
+                        setFormData({ ...formData, height: e });
+                      }}
+                      value={formData.height}
+                      min={0}
+                      max={1000}
+                    />
+                    <Input
+                      type="number"
+                      placeholder="Enter Your weight in kg"
+                      onchange={(e) => {
+                        setFormData({ ...formData, weight: e });
+                      }}
+                      value={formData.weight}
+                      min={0}
+                      max={1000}
+                    />
+                    <Input
+                      type="number"
+                      placeholder="Enter Your age"
+                      onchange={(e) => {
+                        setFormData({ ...formData, age: e });
+                      }}
+                      value={formData.age}
+                    />
+                  </div>
+                  <div className="pt-2 pb-4">
+                    <SelectInput
+                      value={formData.medical_history}
+                      onchange={(data) =>
+                        setFormData({
+                          ...formData,
+                          medical_history: data as MultiValue<{
+                            label: string;
+                            value: string;
+                          }>,
+                        })
+                      }
+                      isMulti={true}
+                      type={"history"}
+                      placeholder={"Choose other medical conditions"}
+                    />
+                  </div>
 
                   <SelectInput
                     value={formData.type}
