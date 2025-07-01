@@ -1,10 +1,5 @@
 "use client";
-import html2pdf from "html2pdf.js";
-import React, { useRef } from "react";
 import {
-  Apple,
-  Drumstick,
-  Salad,
   Droplet,
   AlertCircle,
   Flame,
@@ -36,9 +31,14 @@ interface Props {
 const DietChart: React.FC<Props> = ({ data }) => {
   const { recommendations } = data;
   return (
-    <div  className="max-w-4xl mx-2 p-6 bg-white rounded-lg mt-10 ">
+    <div className="max-w-4xl mx-2 p-6 bg-white rounded-lg mt-10 ">
       <div className="w-full flex justify-end">
-      <button className="py-1 px-3 rounded-md bg-blue-400 no-print text-white font-semibold" onClick={window.print}>Export to pdf</button>
+        <button
+          className="py-1 px-3 rounded-md bg-blue-400 no-print text-white font-semibold"
+          onClick={window.print}
+        >
+          Export to pdf
+        </button>
       </div>
       <h1 className="text-3xl font-bold text-blue-700 text-center mb-4">
         {data.name}'s Kidney-Friendly Diet Chart
@@ -60,7 +60,9 @@ const DietChart: React.FC<Props> = ({ data }) => {
         <ul className="ml-4 mt-2 text-gray-700 space-y-1">
           <li>🔥 Calories: {recommendations.daily_calories}</li>
           <li>🥩 Protein: {recommendations.macronutrients.protein}</li>
-          <li>🍞 Carbohydrates: {recommendations.macronutrients.carbohydrates}</li>
+          <li>
+            🍞 Carbohydrates: {recommendations.macronutrients.carbohydrates}
+          </li>
           <li>🥑 Fats: {recommendations.macronutrients.fats}</li>
         </ul>
       </section>
@@ -71,28 +73,32 @@ const DietChart: React.FC<Props> = ({ data }) => {
           Meal Plan
         </div>
         <ul className="ml-4 mt-2 text-gray-700  space-y-2 py-5">
-          {recommendations?.meal_plan?.map((meal:any)=>{
+          {recommendations?.meal_plan?.map((meal: any) => {
             return (
               <div className="py-2">
-                <b className="text-lg">
-              {meal.meal_name}
-                </b>
-              {
-                meal.options.map((option:any,index:number)=>{
+                <b className="text-lg">{meal.meal_name}</b>
+                {meal.options.map((option: any, index: number) => {
                   return (
                     <div className="leading-[19px]">
-                      <h3><span className="font-semibold ">Option : {index+1} - </span>{option.name}</h3>
+                      <h3>
+                        <span className="font-semibold ">
+                          Option : {index + 1} -{" "}
+                        </span>
+                        {option.name}
+                      </h3>
                       <p className="ml-5">{option.description}</p>
                       <p className="ml-5">( {option.considerations} )</p>
                       <p className="ml-5 text-sm mb-2">
-                        Nutients : Calories - {option.nutrients.calories}, Protein - {option.nutrients.protein}, Carbohydrates - {option.nutrients.carbohydrates}, Fat - {option.nutrients.fats}
+                        Nutients : Calories - {option.nutrients.calories},
+                        Protein - {option.nutrients.protein}, Carbohydrates -{" "}
+                        {option.nutrients.carbohydrates}, Fat -{" "}
+                        {option.nutrients.fats}
                       </p>
                     </div>
-                  )
-                })
-              }
-            </div>
-            )
+                  );
+                })}
+              </div>
+            );
           })}
           {/* <li><Drumstick className="inline-block mr-1" /> <strong>Lunch:</strong> {recommendations.meal_plan.lunch}</li>
           <li><Salad className="inline-block mr-1" /> <strong>Dinner:</strong> {recommendations.meal_plan.dinner}</li>
