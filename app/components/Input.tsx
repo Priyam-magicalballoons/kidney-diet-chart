@@ -1,16 +1,25 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 
 interface InputProps {
   placeholder: string;
   value: string;
   onchange: (data: string) => void;
   type?: "number" | "text" | "password" | "email";
+  min?: number;
+  max?: number;
 }
 
-const Input = ({ onchange, placeholder, value, type = "text" }: InputProps) => {
+const Input = ({
+  onchange,
+  placeholder,
+  value,
+  type = "text",
+  max,
+  min,
+}: InputProps) => {
   const [hasValue, setHasValue] = useState(false);
 
   useEffect(() => {
@@ -22,12 +31,24 @@ const Input = ({ onchange, placeholder, value, type = "text" }: InputProps) => {
       <div className={`input-container ${hasValue ? "has-value" : ""}`}>
         <input
           type={type}
-          onChange={(e) => onchange(e.target.value)}
+          onChange={(e) =>
+            onchange(
+              Number(e.target.value) > max!
+                ? max!.toString()
+                : Number(e.target.value) < min!
+                ? min!.toString()
+                : e.target.value
+            )
+          }
           id="input"
           value={value}
           required
+          min={min}
+          max={max}
         />
-        <label htmlFor="input" className="label">{placeholder}</label>
+        <label htmlFor="input" className="label">
+          {placeholder}
+        </label>
         <div className="underline" />
       </div>
     </StyledWrapper>

@@ -23,7 +23,7 @@ export async function generateDietChart(data: FormType) {
   const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
   const prompt = `
-You are a certified renal dietitian AI. A patient has submitted their information to generate a personalized kidney-safe diet plan. create detailed diet plan with multiple options along with proper timing ranges.
+You are a certified renal dietitian AI. A patient has submitted their information to generate a personalized kidney-safe diet plan. create detailed Indian style diet plan with multiple options along with proper timing ranges.
 
 Patient Details:
 - Name: ${data.name}
@@ -33,7 +33,9 @@ Patient Details:
 - Disease Type: ${data.type?.label || "Not specified"}
 - Stage (if CKD): ${data.stage || "Not specified"}
 - Dietary Preference: ${data.diet_preference}
-- Medical History: ${data.medical_history.map(m => m.label).join(", ") || "None"}
+- Medical History: ${
+    data.medical_history.map((m) => m.label).join(", ") || "None"
+  }
 
 Lab Parameters (Optional):
 - Phosphorus: ${data.phosphorus || "Not provided"}
@@ -65,7 +67,13 @@ Please generate a JSON response with the following structure:
     }
     ]
     }]
-    "foods_to_avoid": ["...", "..."],
+    "foods_to_avoid": [High-potassium vegetables (...)
+      High-phosphorus foods (...)
+      High-sodium foods (...)
+      High-oxalate foods (...)
+      Fruits like ...
+      ...
+      ],
     "hydration_advice": "...",
     "additional_notes": "Any other specific advice"
   }
@@ -77,9 +85,11 @@ Only respond with the JSON. Do not add any text outside the JSON.
   const response = await result.response.text();
 
   try {
-    console.log(response)
-    console.log(response.replace("```","").replace("```json",""))
-    return JSON.parse(response.replace("```json","").replace("```","").replace("json",""));
+    console.log(response);
+    console.log(response.replace("```", "").replace("```json", ""));
+    return JSON.parse(
+      response.replace("```json", "").replace("```", "").replace("json", "")
+    );
   } catch (e) {
     console.error("Failed to parse Gemini response:", response);
     throw new Error("Invalid JSON returned from Gemini");
